@@ -1,11 +1,11 @@
 package main
 
 import(
-  "github.com/donaderoyan/graphql-api/app"
-  gconfig "github.com/donaderoyan/graphql-api/config"
+  "github.com/donaderoyan/go-graphql-api/app"
+  getconfig "github.com/donaderoyan/go-graphql-api/config"
 )
 
 func main() {
-  config := gconfig.LoadConfig(".")
+  config := getconfig.LoadConfig(".")
   app.Initialize(config)
 }

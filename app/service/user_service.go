@@ -99,10 +99,10 @@ func (u *UserService) Count() (int, error) {
 func (u *UserService) ComparePassword(userCredentials *model.UserCredentials) (*model.User, error) {
 	user, err := u.FindByEmail(userCredentials.Email)
 	if err != nil {
-		return nil, errors.New(context.UnauthorizedAccess)
+		return nil, errors.New(config.UnauthorizedAccess)
 	}
 	if result := user.ComparePassword(userCredentials.Password); !result {
-		return nil, errors.New(context.UnauthorizedAccess)
+		return nil, errors.New(config.UnauthorizedAccess)
 	}
 	return user, nil
 }

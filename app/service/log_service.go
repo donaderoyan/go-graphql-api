@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func NewLogger(config *context.Config) *logging.Logger {
+func NewLogger(config *config.Configuration) *logging.Logger {
 	backend := logging.NewLogBackend(os.Stderr, "", 0)
 	format := logging.MustStringFormatter(config.LogFormat)
 	backendFormatter := logging.NewBackendFormatter(backend, format)

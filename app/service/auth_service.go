@@ -17,7 +17,7 @@ type AuthService struct {
 	log                 *logging.Logger
 }
 
-func NewAuthService(config *context.Config, log *logging.Logger) *AuthService {
+func NewAuthService(config *config.Configuration, log *logging.Logger) *AuthService {
 	return &AuthService{&config.AppName, &config.JWTSecret, &config.JWTExpireIn, log}
 }
 

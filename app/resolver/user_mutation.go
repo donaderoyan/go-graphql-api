@@ -4,7 +4,7 @@ import (
 	"github.com/donaderoyan/go-graphql-api/app/model"
 	"github.com/donaderoyan/go-graphql-api/app/service"
 	"github.com/op/go-logging"
-	"golang.org/x/net/context"
+	"context"
 )
 
 func (r *Resolver) CreateUser(ctx context.Context, args *struct {

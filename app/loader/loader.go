@@ -2,7 +2,7 @@ package loader
 
 import (
 	"fmt"
-	"golang.org/x/net/context"
+	"context"
 	"gopkg.in/nicksrandall/dataloader.v5"
 )
 

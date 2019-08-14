@@ -6,7 +6,7 @@ import (
 	"github.com/donaderoyan/go-graphql-api/app/loader"
 	"github.com/donaderoyan/go-graphql-api/app/service"
 	"github.com/op/go-logging"
-	"golang.org/x/net/context"
+	"context"
 )
 
 func (r *Resolver) User(ctx context.Context, args struct {
@@ -36,7 +36,7 @@ func (r *Resolver) Users(ctx context.Context, args struct {
 	users, err := ctx.Value("userService").(*service.UserService).List(args.First, args.After)
 	count, err := ctx.Value("userService").(*service.UserService).Count()
 	ctx.Value("log").(*logging.Logger).Debugf("Retrieved users by user_id[%s] :", *userId)
-	config := ctx.Value("config").(*getconfig.Config)
+	config := ctx.Value("config").(*getconfig.Configuration)
 	if config.DebugMode {
 		for _, user := range users {
 			ctx.Value("log").(*logging.Logger).Debugf("%v", *user)

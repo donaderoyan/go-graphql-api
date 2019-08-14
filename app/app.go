@@ -8,7 +8,7 @@ import(
 
   graphql "github.com/graph-gophers/graphql-go"
 
-  gconfig "github.com/donaderoyan/go-graphql-api/config"
+  getconfig "github.com/donaderoyan/go-graphql-api/config"
   h "github.com/donaderoyan/go-graphql-api/app/handler"
   "github.com/donaderoyan/go-graphql-api/app/resolver"
   "github.com/donaderoyan/go-graphql-api/app/schema"
@@ -16,8 +16,8 @@ import(
   "github.com/donaderoyan/go-graphql-api/app/loader"
 )
 
-func Initialize(config *gconfig.Configuration) {
-  db, err := gconfig.OpenDB(config)
+func Initialize(config *getconfig.Configuration) {
+  db, err := getconfig.OpenDB(config)
   if err != nil {
 		log.Fatalf("Unable to connect to db: %s \n", err)
   }
@@ -35,7 +35,7 @@ func Initialize(config *gconfig.Configuration) {
 	ctx = context.WithValue(ctx, "userService", userService)
 	ctx = context.WithValue(ctx, "authService", authService)
 
-	graphqlSchema := graphql.MustParseSchema(schema.GetRootSchema(), &resolver.Resolver{})
+	graphqlSchema := graphql.MustParseSchema(schema.NewSchema(), &resolver.Resolver{})
 
 	http.Handle("/login", h.AddContext(ctx, h.Login()))
 

@@ -8,7 +8,7 @@ import (
 	"github.com/donaderoyan/go-graphql-api/app/model"
 	"github.com/donaderoyan/go-graphql-api/app/service"
 	jwt "github.com/dgrijalva/jwt-go"
-	"golang.org/x/net/context"
+	"context"
 	"log"
 	"net"
 	"net/http"

@@ -6,7 +6,7 @@ import (
 	"github.com/donaderoyan/go-graphql-api/app/service"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/gqltesting"
-	"golang.org/x/net/context"
+	"context"
 	"log"
 	"testing"
 )

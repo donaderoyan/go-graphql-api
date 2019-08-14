@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/donaderoyan/go-graphql-api/app/model"
 	"github.com/donaderoyan/go-graphql-api/app/service"
-	"golang.org/x/net/context"
+	"context"
 	"gopkg.in/nicksrandall/dataloader.v5"
 	"sync"
 )
