@@ -2,9 +2,9 @@ package resolver
 
 import (
 	"errors"
-	gcontext "github.com/donaderoyan/go-graphql-starter/context"
-	"github.com/donaderoyan/go-graphql-starter/loader"
-	"github.com/donaderoyan/go-graphql-starter/service"
+	getconfig "github.com/donaderoyan/go-graphql-api/config"
+	"github.com/donaderoyan/go-graphql-api/app/loader"
+	"github.com/donaderoyan/go-graphql-api/app/service"
 	"github.com/op/go-logging"
 	"golang.org/x/net/context"
 )
@@ -29,14 +29,14 @@ func (r *Resolver) Users(ctx context.Context, args struct {
 	After *string
 }) (*usersConnectionResolver, error) {
 	if isAuthorized := ctx.Value("is_authorized").(bool); !isAuthorized {
-		return nil, errors.New(gcontext.CredentialsError)
+		return nil, errors.New(getconfig.CredentialsError)
 	}
 	userId := ctx.Value("user_id").(*string)
 
 	users, err := ctx.Value("userService").(*service.UserService).List(args.First, args.After)
 	count, err := ctx.Value("userService").(*service.UserService).Count()
 	ctx.Value("log").(*logging.Logger).Debugf("Retrieved users by user_id[%s] :", *userId)
-	config := ctx.Value("config").(*gcontext.Config)
+	config := ctx.Value("config").(*getconfig.Config)
 	if config.DebugMode {
 		for _, user := range users {
 			ctx.Value("log").(*logging.Logger).Debugf("%v", *user)

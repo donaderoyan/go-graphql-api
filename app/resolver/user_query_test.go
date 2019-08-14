@@ -1,9 +1,9 @@
 package resolver
 
 import (
-	gcontext "github.com/donaderoyan/go-graphql-starter/context"
-	"github.com/donaderoyan/go-graphql-starter/schema"
-	"github.com/donaderoyan/go-graphql-starter/service"
+	getconfig "github.com/donaderoyan/go-graphql-api/config"
+	"github.com/donaderoyan/go-graphql-api/app/schema"
+	"github.com/donaderoyan/go-graphql-api/app/service"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/gqltesting"
 	"golang.org/x/net/context"
@@ -17,8 +17,8 @@ var (
 )
 
 func init() {
-	config := gcontext.LoadConfig("../")
-	db, err := gcontext.OpenDB(config)
+	config := getconfig.LoadConfig("../")
+	db, err := getconfig.OpenDB(config)
 	if err != nil {
 		log.Fatalf("Unable to connect to db: %s \n", err)
 	}

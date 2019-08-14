@@ -9,11 +9,11 @@ import(
   graphql "github.com/graph-gophers/graphql-go"
 
   gconfig "github.com/donaderoyan/go-graphql-api/config"
-  h "github.com/donaderoyan/go-graphql-api/handler"
-  "github.com/donaderoyan/go-graphql-api/resolver"
-  "github.com/donaderoyan/go-graphql-api/schema"
-  "github.com/donaderoyan/go-graphql-api/service"
-  "github.com/donaderoyan/go-graphql-api/loader"
+  h "github.com/donaderoyan/go-graphql-api/app/handler"
+  "github.com/donaderoyan/go-graphql-api/app/resolver"
+  "github.com/donaderoyan/go-graphql-api/app/schema"
+  "github.com/donaderoyan/go-graphql-api/app/service"
+  "github.com/donaderoyan/go-graphql-api/app/loader"
 )
 
 func Initialize(config *gconfig.Configuration) {

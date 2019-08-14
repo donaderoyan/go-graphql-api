@@ -1,8 +1,8 @@
 package resolver
 
 import (
-	"github.com/donaderoyan/go-graphql-starter/model"
-	"github.com/donaderoyan/go-graphql-starter/service"
+	"github.com/donaderoyan/go-graphql-api/app/model"
+	"github.com/donaderoyan/go-graphql-api/app/service"
 	"github.com/op/go-logging"
 	"golang.org/x/net/context"
 )

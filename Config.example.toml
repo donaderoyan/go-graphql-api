@@ -1,4 +1,4 @@
-app-name = "go-graphql-starter"
+app-name = "go-graphql-api"
 version = 1.0
 
 [db]
