@@ -3,8 +3,8 @@ package resolver
 import (
 	"errors"
 	getconfig "github.com/donaderoyan/go-graphql-api/config"
-	"github.com/donaderoyan/go-graphql-api/app/loader"
-	"github.com/donaderoyan/go-graphql-api/app/service"
+	"github.com/donaderoyan/go-graphql-api/src/loader"
+	"github.com/donaderoyan/go-graphql-api/src/service"
 	"github.com/op/go-logging"
 	"context"
 )

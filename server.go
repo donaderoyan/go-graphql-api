@@ -1,4 +1,4 @@
-package app
+package main
 
 import(
   "net/http"
@@ -9,14 +9,15 @@ import(
   graphql "github.com/graph-gophers/graphql-go"
 
   getconfig "github.com/donaderoyan/go-graphql-api/config"
-  h "github.com/donaderoyan/go-graphql-api/app/handler"
-  "github.com/donaderoyan/go-graphql-api/app/resolver"
-  "github.com/donaderoyan/go-graphql-api/app/schema"
-  "github.com/donaderoyan/go-graphql-api/app/service"
-  "github.com/donaderoyan/go-graphql-api/app/loader"
+  h "github.com/donaderoyan/go-graphql-api/src/handler"
+  "github.com/donaderoyan/go-graphql-api/src/resolver"
+  "github.com/donaderoyan/go-graphql-api/src/schema"
+  "github.com/donaderoyan/go-graphql-api/src/service"
+  "github.com/donaderoyan/go-graphql-api/src/loader"
 )
 
-func Initialize(config *getconfig.Configuration) {
+func main() {
+  config := getconfig.LoadConfig(".")
   db, err := getconfig.OpenDB(config)
   if err != nil {
 		log.Fatalf("Unable to connect to db: %s \n", err)

@@ -5,6 +5,6 @@ import (
 )
 
 func NewSchema() string {
-	schema := gql.Merge("  ", "./app/schema")
+	schema := gql.Merge("  ", "./src/schema")
 	return *schema
 }

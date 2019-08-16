@@ -2,7 +2,7 @@ package service
 
 import (
 	getconfig "github.com/donaderoyan/go-graphql-api/config"
-	"github.com/donaderoyan/go-graphql-api/app/model"
+	"github.com/donaderoyan/go-graphql-api/src/model"
 	"testing"
 )
 

@@ -2,8 +2,8 @@ package loader
 
 import (
 	"fmt"
-	"github.com/donaderoyan/go-graphql-api/app/model"
-	"github.com/donaderoyan/go-graphql-api/app/service"
+	"github.com/donaderoyan/go-graphql-api/src/model"
+	"github.com/donaderoyan/go-graphql-api/src/service"
 	"context"
 	"gopkg.in/nicksrandall/dataloader.v5"
 	"sync"

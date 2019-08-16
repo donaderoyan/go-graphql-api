@@ -2,8 +2,8 @@ package resolver
 
 import (
 	getconfig "github.com/donaderoyan/go-graphql-api/config"
-	"github.com/donaderoyan/go-graphql-api/app/schema"
-	"github.com/donaderoyan/go-graphql-api/app/service"
+	"github.com/donaderoyan/go-graphql-api/src/schema"
+	"github.com/donaderoyan/go-graphql-api/src/service"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/gqltesting"
 	"context"

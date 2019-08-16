@@ -1,7 +1,7 @@
 package resolver
 
 import (
-	"github.com/donaderoyan/go-graphql-api/app/model"
+	"github.com/donaderoyan/go-graphql-api/src/model"
 	"github.com/graph-gophers/graphql-go"
 )
 
