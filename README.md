@@ -120,3 +120,7 @@ query {
 
 
 {"query":"{getAllUsers{ok error users {id email firstName lastName bio avatar}}}"}
+
+{"query":"{user(email:\"odon@test.com\"){id email createdAt }}"}
+
+{"query":"{users(first:1){totalCount edges{cursor node{email}}}}"}

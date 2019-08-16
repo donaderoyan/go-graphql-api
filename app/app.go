@@ -2,7 +2,7 @@ package app
 
 import(
   "net/http"
-  "context"
+  //"context"
   "log"
   //"fmt"
 
@@ -21,19 +21,10 @@ func Initialize(config *getconfig.Configuration) {
   if err != nil {
 		log.Fatalf("Unable to connect to db: %s \n", err)
   }
-
   defer db.Close()
-  ctx := context.Background()
-	log := service.NewLogger(config)
-	roleService := service.NewRoleService(db, log)
-	userService := service.NewUserService(db, roleService, log)
-	authService := service.NewAuthService(config, log)
 
-	ctx = context.WithValue(ctx, "config", config)
-	ctx = context.WithValue(ctx, "log", log)
-	ctx = context.WithValue(ctx, "roleService", roleService)
-	ctx = context.WithValue(ctx, "userService", userService)
-	ctx = context.WithValue(ctx, "authService", authService)
+  s := service.NewService(db, config)
+  ctx := s.InitServiceContext()
 
 	graphqlSchema := graphql.MustParseSchema(schema.NewSchema(), &resolver.Resolver{})
 
