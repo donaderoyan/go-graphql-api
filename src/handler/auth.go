@@ -59,8 +59,10 @@ func Login() http.Handler {
 			writeResponse(w, loginResponse, loginResponse.Code)
 			return
 		}
-		userCredentials, err := validateBasicAuthHeader(r)
-		if err != nil {
+
+		userCredentials := &model.UserCredentials{}
+		decoder := json.NewDecoder(r.Body)
+		if err := decoder.Decode(&userCredentials); err != nil {
 			response := &model.Response{
 				Code:  http.StatusBadRequest,
 				Error: err.Error(),
@@ -69,6 +71,18 @@ func Login() http.Handler {
 			writeResponse(w, loginResponse, loginResponse.Code)
 			return
 		}
+		defer r.Body.Close()
+
+		//userCredentials, err := validateBasicAuthHeader(r)
+		// if err != nil {
+		// 	response := &model.Response{
+		// 		Code:  http.StatusBadRequest,
+		// 		Error: err.Error(),
+		// 	}
+		// 	loginResponse.Response = response
+		// 	writeResponse(w, loginResponse, loginResponse.Code)
+		// 	return
+		// }
 		user, err := ctx.Value("userService").(*service.UserService).ComparePassword(userCredentials)
 		if err != nil {
 			response := &model.Response{
