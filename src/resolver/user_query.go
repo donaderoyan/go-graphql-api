@@ -2,7 +2,7 @@ package resolver
 
 import (
 	"errors"
-	getconfig "github.com/donaderoyan/go-graphql-api/config"
+	c "github.com/donaderoyan/go-graphql-api/config"
 	"github.com/donaderoyan/go-graphql-api/src/loader"
 	"github.com/donaderoyan/go-graphql-api/src/service"
 	"github.com/op/go-logging"
@@ -29,14 +29,14 @@ func (r *Resolver) Users(ctx context.Context, args struct {
 	After *string
 }) (*usersConnectionResolver, error) {
 	if isAuthorized := ctx.Value("is_authorized").(bool); !isAuthorized {
-		return nil, errors.New(getconfig.CredentialsError)
+		return nil, errors.New(c.CredentialsError)
 	}
 	userId := ctx.Value("user_id").(*string)
 
 	users, err := ctx.Value("userService").(*service.UserService).List(args.First, args.After)
 	count, err := ctx.Value("userService").(*service.UserService).Count()
 	ctx.Value("log").(*logging.Logger).Debugf("Retrieved users by user_id[%s] :", *userId)
-	config := ctx.Value("config").(*getconfig.Configuration)
+	config := ctx.Value("config").(*c.Configuration)
 	if config.DebugMode {
 		for _, user := range users {
 			ctx.Value("log").(*logging.Logger).Debugf("%v", *user)

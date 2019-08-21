@@ -1,0 +1,19 @@
+CREATE TABLE articles(
+ID SERIAL PRIMARY KEY,
+title VARCHAR,
+content TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+modified TIMESTAMP,
+deleted_at TIMESTAMP
+)
+
+INSERT INTO articles(
+title, content
+) VALUES
+("How to create graphql api with golang", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+("Do enterpreneur stuff in your free time", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+
+CREATE TABLE rel_articles_users(
+users_id SERIAL REFERENCES users(id) ON UPDATE CASCADE,
+users_id SERIAL REFERENCES users(id) ON UPDATE CASCADE,
+)
