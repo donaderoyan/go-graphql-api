@@ -42,15 +42,11 @@ func (ldr userLoader) loadBatch(ctx context.Context, keys dataloader.Keys) []*da
 func LoadUser(ctx context.Context, key string) (*model.User, error) {
 	var user *model.User
 
-	ldr, err := extract(ctx, userLoaderKey)
+	data, err := loadOne(ctx, userLoaderKey, key)
 	if err != nil {
 		return nil, err
 	}
-
-	data, err := ldr.Load(ctx, dataloader.StringKey(key))()
-	if err != nil {
-		return nil, err
-	}
+	
 	user, ok := data.(*model.User)
 	if !ok {
 		return nil, fmt.Errorf("wrong type: the expected type is %T but got %T", user, data)
