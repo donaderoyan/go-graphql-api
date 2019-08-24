@@ -3,11 +3,13 @@ package service
 import (
 	"database/sql"
 	"errors"
-	"github.com/donaderoyan/go-graphql-api/config"
-	"github.com/donaderoyan/go-graphql-api/src/model"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/op/go-logging"
 	"github.com/rs/xid"
+
+	"github.com/donaderoyan/go-graphql-api/config"
+	"github.com/donaderoyan/go-graphql-api/src/model"
 )
 
 const (
@@ -49,6 +51,7 @@ func (u *UserService) FindByEmail(email string) (*model.User, error) {
 }
 
 func (u *UserService) CreateUser(user *model.User) (*model.User, error) {
+	//Generate unique id
 	userId := xid.New()
 	user.ID = userId.String()
 	userSQL := `INSERT INTO users (id, email, password, ip_address) VALUES (:id, :email, :password, :ip_address)`

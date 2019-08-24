@@ -1,7 +1,7 @@
 package service
 
 import (
-	getconfig "github.com/donaderoyan/go-graphql-api/config"
+	c "github.com/donaderoyan/go-graphql-api/config"
 	"github.com/donaderoyan/go-graphql-api/src/model"
 	"testing"
 )
@@ -11,7 +11,7 @@ var (
 )
 
 func init() {
-	config := getconfig.LoadConfig("../")
+	config := c.LoadConfig("../")
 	log := NewLogger(config)
 	authService = NewAuthService(config, log)
 }

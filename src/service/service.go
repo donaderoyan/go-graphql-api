@@ -25,12 +25,14 @@ func (s *Service) InitServiceContext() context.Context {
 	roleService := NewRoleService(s.db, s.log)
 	userService := NewUserService(s.db, roleService, s.log)
 	authService := NewAuthService(s.config, s.log)
+  articleService := NewArticleService(s.db, userService, s.log)
 
 	ctx = context.WithValue(ctx, "config", s.config)
 	ctx = context.WithValue(ctx, "log", s.log)
 	ctx = context.WithValue(ctx, "roleService", roleService)
 	ctx = context.WithValue(ctx, "userService", userService)
 	ctx = context.WithValue(ctx, "authService", authService)
-
+  ctx = context.WithValue(ctx, "articleService", articleService)
+  
   return ctx
 }

@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
-	getconfig "github.com/donaderoyan/go-graphql-api/config"
+	c "github.com/donaderoyan/go-graphql-api/config"
 	"github.com/donaderoyan/go-graphql-api/src/model"
 	"github.com/donaderoyan/go-graphql-api/src/service"
 	jwt "github.com/dgrijalva/jwt-go"
@@ -53,14 +53,16 @@ func Login() http.Handler {
 		if r.Method != http.MethodPost {
 			response := &model.Response{
 				Code:  http.StatusMethodNotAllowed,
-				Error: getconfig.PostMethodSupported,
+				Error: c.PostMethodSupported,
 			}
 			loginResponse.Response = response
 			writeResponse(w, loginResponse, loginResponse.Code)
 			return
 		}
-		userCredentials, err := validateBasicAuthHeader(r)
-		if err != nil {
+
+		userCredentials := &model.UserCredentials{}
+		decoder := json.NewDecoder(r.Body)
+		if err := decoder.Decode(&userCredentials); err != nil {
 			response := &model.Response{
 				Code:  http.StatusBadRequest,
 				Error: err.Error(),
@@ -69,6 +71,18 @@ func Login() http.Handler {
 			writeResponse(w, loginResponse, loginResponse.Code)
 			return
 		}
+		defer r.Body.Close()
+
+		//userCredentials, err := validateBasicAuthHeader(r)
+		// if err != nil {
+		// 	response := &model.Response{
+		// 		Code:  http.StatusBadRequest,
+		// 		Error: err.Error(),
+		// 	}
+		// 	loginResponse.Response = response
+		// 	writeResponse(w, loginResponse, loginResponse.Code)
+		// 	return
+		// }
 		user, err := ctx.Value("userService").(*service.UserService).ComparePassword(userCredentials)
 		if err != nil {
 			response := &model.Response{
@@ -84,7 +98,7 @@ func Login() http.Handler {
 		if err != nil {
 			response := &model.Response{
 				Code:  http.StatusBadRequest,
-				Error: getconfig.TokenError,
+				Error: c.TokenError,
 			}
 			loginResponse.Response = response
 			writeResponse(w, loginResponse, loginResponse.Code)
@@ -109,12 +123,12 @@ func writeResponse(w http.ResponseWriter, response interface{}, code int) {
 func validateBasicAuthHeader(r *http.Request) (*model.UserCredentials, error) {
 	auth := strings.SplitN(r.Header.Get("Authorization"), " ", 2)
 	if len(auth) != 2 || auth[0] != "Basic" {
-		return nil, errors.New(getconfig.CredentialsError)
+		return nil, errors.New(c.CredentialsError)
 	}
 	payload, _ := base64.StdEncoding.DecodeString(auth[1])
 	pair := strings.SplitN(string(payload), ":", 2)
 	if len(pair) != 2 {
-		return nil, errors.New(getconfig.CredentialsError)
+		return nil, errors.New(c.CredentialsError)
 	}
 	userCredentials := model.UserCredentials{
 		Email:    pair[0],
@@ -129,7 +143,7 @@ func validateBearerAuthHeader(ctx context.Context, r *http.Request) (*jwt.Token,
 	if !ok || len(keys) < 1 {
 		auth := strings.SplitN(r.Header.Get("Authorization"), " ", 2)
 		if len(auth) != 2 || auth[0] != "Bearer" {
-			return nil, errors.New(getconfig.CredentialsError)
+			return nil, errors.New(c.CredentialsError)
 		}
 		tokenString = auth[1]
 	} else {

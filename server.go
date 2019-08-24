@@ -6,7 +6,7 @@ import(
 
   graphql "github.com/graph-gophers/graphql-go"
 
-  getconfig "github.com/donaderoyan/go-graphql-api/config"
+  c "github.com/donaderoyan/go-graphql-api/config"
   h "github.com/donaderoyan/go-graphql-api/src/handler"
   "github.com/donaderoyan/go-graphql-api/src/resolver"
   "github.com/donaderoyan/go-graphql-api/src/schema"
@@ -15,8 +15,8 @@ import(
 )
 
 func main() {
-  config := getconfig.LoadConfig(".")
-  db, err := getconfig.OpenDB(config)
+  config := c.LoadConfig(".")
+  db, err := c.OpenDB(config)
   if err != nil {
 		log.Fatalf("Unable to connect to db: %s \n", err)
   }

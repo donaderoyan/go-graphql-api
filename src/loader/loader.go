@@ -10,6 +10,7 @@ type key string
 
 const (
 	userLoaderKey key = "user"
+	articleLoaderKey key = "article"
 )
 
 // Initialize a lookup map of context keys to batch functions.
@@ -22,6 +23,7 @@ func NewLoaderCollection() LoaderCollection {
 	return LoaderCollection{
 		dataloaderFuncMap: map[key]dataloader.BatchFunc{
 			userLoaderKey: newUserLoader(),
+			articleLoaderKey: newArticleLoader(),
 		},
 	}
 }
@@ -48,4 +50,19 @@ func extract(ctx context.Context, k key) (*dataloader.Loader, error) {
 	}
 
 	return ldr, nil
+}
+
+
+func loadOne(ctx context.Context, loaderKey key, k string) (interface{}, error) {
+	ldr, err := extract(ctx, loaderKey)
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := ldr.Load(ctx, dataloader.StringKey(k))()
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
