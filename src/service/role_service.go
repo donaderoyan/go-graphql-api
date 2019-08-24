@@ -5,6 +5,7 @@ import (
 	"github.com/donaderoyan/go-graphql-api/src/model"
 	"github.com/jmoiron/sqlx"
 	"github.com/op/go-logging"
+	"fmt"
 )
 
 type RoleService struct {
@@ -18,7 +19,6 @@ func NewRoleService(db *sqlx.DB, log *logging.Logger) *RoleService {
 
 func (r *RoleService) FindByUserId(userId *string) ([]*model.Role, error) {
 	roles := make([]*model.Role, 0)
-
 	roleSQL := `SELECT role.*
 	FROM roles role
 	INNER JOIN rel_users_roles ur ON role.id = ur.role_id

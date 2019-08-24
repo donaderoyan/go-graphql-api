@@ -2,9 +2,7 @@ package main
 
 import(
   "net/http"
-  //"context"
   "log"
-  //"fmt"
 
   graphql "github.com/graph-gophers/graphql-go"
 

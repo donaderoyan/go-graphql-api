@@ -27,6 +27,7 @@ func (ldr userLoader) loadBatch(ctx context.Context, keys dataloader.Keys) []*da
 	wg.Add(n)
 
 	for i, key := range keys {
+		fmt.Println("must be key %v",key)
 		go func(i int, key dataloader.Key) {
 			defer wg.Done()
 			user, err := ctx.Value("userService").(*service.UserService).FindByEmail(key.String())
