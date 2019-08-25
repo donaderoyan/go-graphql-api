@@ -9,46 +9,45 @@ import (
   "sync"
 )
 
-type articleLoader struct {
+type articlesLoader struct {
 }
 
 func newArticleLoader() dataloader.BatchFunc {
-	return articleLoader{}.loadBatch
+	return articlesLoader{}.loadBatch
 }
 
-func (ldr articleLoader) loadBatch(ctx context.Context, keys dataloader.Keys) []*dataloader.Result {
+func (ldr articlesLoader) loadBatch(ctx context.Context, keys dataloader.Keys) []*dataloader.Result {
   var (
 		n       = len(keys)
 		results = make([]*dataloader.Result, n)
 		//wg      sync.WaitGroup
 	)
+  data, err := ctx.Value("articleService").(*service.ArticleService).FindArticlesByUser(keys)
 
-  wg.Add(n)
+  //wg.Add(n)
 
-  for i, key := range keys {
-    go func (i int, key dataloader.Key)  {
-      defer wg.Done()
-      author, err := ctx.Value("articleService").(*service.ArticleService).FindArticleByUser(keys)
-      results[i] = &dataloader.Result{Data: author, Error: err}
-    }(i, key)
+  for i, v := range data {
+    results[i] = &dataloader.Result{Data: v}
   }
 
-  wg.Wait()
+
+  //wg.Wait()
   return results
 }
 
-func LoadArticle(ctx context.Context, userId string) (*model.User, error) {
-  var user *model.User
 
-	data, err := loadOne(ctx, articleLoaderKey, userId)
+
+
+func LoadArticlesByUser(ctx context.Context, userId string) ([]*model.Article, error) {
+	data, err := loadOne(ctx, articlesLoaderKey, userId)
 	if err != nil {
 		return nil, err
 	}
 
-	user, ok := data.(*model.User)
+	article, ok := data.([]*model.Article)
 	if !ok {
 		return nil, fmt.Errorf("wrong type: the expected type is %T but got %T", user, data)
 	}
 
-	return user, nil
+	return article, nil
 }

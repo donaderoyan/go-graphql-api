@@ -10,7 +10,7 @@ type key string
 
 const (
 	userLoaderKey key = "user"
-	articleLoaderKey key = "article"
+	articlesLoaderKey key = "article"
 )
 
 // Initialize a lookup map of context keys to batch functions.
@@ -23,7 +23,7 @@ func NewLoaderCollection() LoaderCollection {
 	return LoaderCollection{
 		dataloaderFuncMap: map[key]dataloader.BatchFunc{
 			userLoaderKey: newUserLoader(),
-			articleLoaderKey: newArticleLoader(),
+			articlesLoaderKey: newArticleLoader(),
 		},
 	}
 }

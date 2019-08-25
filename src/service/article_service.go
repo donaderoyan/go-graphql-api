@@ -71,9 +71,25 @@ func (a *ArticleService) ListArticles(first *int32, after *string) ([]*model.Art
 		return articles, nil
 	}
 	articleSQL := `SELECT id, title, content, created_at, modified FROM articles WHERE deleted_at IS NULL ORDER BY created_at DESC LIMIT $1;`
-	err := u.db.Select(&articles, articleSQL, fetchSize)
+	err := a.db.Select(&articles, articleSQL, fetchSize)
 	if err != nil {
 		return nil, err
 	}
+	return articles, nil
+}
+
+func (a *ArticleService) FindArticlesByUser(userIds []string) ([]*model.Article, error) {
+	articles := make([]*model.Article, 0)
+	articleSQL := `
+		SELECT ar.id, ar.title, ar.content, ar.created_at, ar.modified FROM articles ar
+		INNER JOIN rel_articles_users rel ON ar.id = rel.article_id
+		WHERE rel.user_id = ANY($1)
+		ORDER by ar.created_at DESC
+	`
+	err := a.db.Select(&articles, articleSQL, userIds)
+	if err != nil {
+		return nil, err
+	}
+
 	return articles, nil
 }

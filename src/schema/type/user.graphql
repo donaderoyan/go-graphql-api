@@ -5,5 +5,5 @@ type User {
     ipAddress: String
     createdAt: Time
     roles: [Role]
-    articles: ArticlesConnection
+    articles: [Article]
 }
