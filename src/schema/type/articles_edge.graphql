@@ -1,0 +1,4 @@
+type ArticlesEdge {
+    cursor: ID!
+    node: Article
+}

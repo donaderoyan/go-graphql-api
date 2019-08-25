@@ -20,7 +20,7 @@ func (ldr articleLoader) loadBatch(ctx context.Context, keys dataloader.Keys) []
   var (
 		n       = len(keys)
 		results = make([]*dataloader.Result, n)
-		wg      sync.WaitGroup
+		//wg      sync.WaitGroup
 	)
 
   wg.Add(n)
@@ -28,7 +28,7 @@ func (ldr articleLoader) loadBatch(ctx context.Context, keys dataloader.Keys) []
   for i, key := range keys {
     go func (i int, key dataloader.Key)  {
       defer wg.Done()
-      author, err := ctx.Value("articleService").(*service.ArticleService).FindAuthor(key.String())
+      author, err := ctx.Value("articleService").(*service.ArticleService).FindArticleByUser(keys)
       results[i] = &dataloader.Result{Data: author, Error: err}
     }(i, key)
   }
@@ -37,10 +37,10 @@ func (ldr articleLoader) loadBatch(ctx context.Context, keys dataloader.Keys) []
   return results
 }
 
-func LoadAuthor(ctx context.Context, articleID string) (*model.User, error) {
+func LoadArticle(ctx context.Context, userId string) (*model.User, error) {
   var user *model.User
 
-	data, err := loadOne(ctx, articleLoaderKey, articleID)
+	data, err := loadOne(ctx, articleLoaderKey, userId)
 	if err != nil {
 		return nil, err
 	}

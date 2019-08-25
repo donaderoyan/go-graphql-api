@@ -4,6 +4,7 @@ import (
 	"github.com/donaderoyan/go-graphql-api/src/model"
 	graphql "github.com/graph-gophers/graphql-go"
 	"time"
+	"context"
 	"github.com/donaderoyan/go-graphql-api/src/loader"
 )
 
@@ -53,11 +54,15 @@ func (r *userResolver) Roles() *[]*roleResolver {
 	return &l
 }
 
-func newUserArticle(ctx context.Context, articleID string) (*roleResolver, error) {
+func (r *userResolver) Articles(ctx context.Context) (*[]*articleResolver, error) {
+	return newArticles(ctx, r.u.ID)
+}
+
+
+func newAuthor(ctx context.Context, articleID string) (*userResolver, error) {
 	author, err := loader.LoadAuthor(ctx, articleID)
 	if err != nil {
 		return nil, err
 	}
-
 	return author, nil
 }

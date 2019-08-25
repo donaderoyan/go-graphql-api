@@ -1,0 +1,5 @@
+type ArticlesConnection {
+    totalCount: Int!
+    edges: [ArticlesEdge]
+    pageInfo: PageInfo!
+}

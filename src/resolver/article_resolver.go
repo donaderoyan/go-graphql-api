@@ -5,6 +5,7 @@ import (
   "github.com/donaderoyan/go-graphql-api/src/model"
   graphql "github.com/graph-gophers/graphql-go"
   "time"
+  "context"
 )
 // articleResolver resolves article properties
 type articleResolver struct {
@@ -42,5 +43,14 @@ func (r *userResolver) Modified() (*graphql.Time, error) {
 }
 
 func (r *userResolver) Author(ctx context.Context) (*userResolver, error) {
-  return newUserArticle(ctx, r.u.ID)
+  return newAuthor(ctx, r.u.ID)
+}
+
+func newArticles(ctx context.Context, userId string) (*[]*articleResolver, error) {
+	list, err := loader.LoadArticlesByUser(userId)
+	if err != nil {
+		return nil, err
+	}
+
+	return list, nil
 }
