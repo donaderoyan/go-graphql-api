@@ -5,7 +5,6 @@ import (
 	"github.com/donaderoyan/go-graphql-api/src/model"
 	"github.com/jmoiron/sqlx"
 	"github.com/op/go-logging"
-	"fmt"
 )
 
 type RoleService struct {

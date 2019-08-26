@@ -5,8 +5,7 @@ schema {
 type Query {
     user(email: String!): User
     users(first: Int,  after: String): UsersConnection!
-    article(id: String!): Article
-    listArticles(first: Int): ArticlesConnection!
+
 }
 type Mutation {
     createUser(email: String!, password: String!): User

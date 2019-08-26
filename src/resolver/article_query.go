@@ -9,8 +9,8 @@ import (
 	"context"
 )
 
-func (r *Resolver) listArticles(ctx context.Context, args struct {
-  First *int32
-  }) (*articlesConnectionResolver, error) {
-
-}
+// func (r *Resolver) listArticles(ctx context.Context, args struct {
+//   First *int32
+//   }) (*articlesConnectionResolver, error) {
+//
+// }

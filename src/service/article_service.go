@@ -1,20 +1,17 @@
 package service
 
 import (
-	"database/sql"
-	"errors"
+	//"database/sql"
+	//"errors"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/op/go-logging"
 	"github.com/rs/xid"
 
-	"github.com/donaderoyan/go-graphql-api/config"
+	//"github.com/donaderoyan/go-graphql-api/config"
 	"github.com/donaderoyan/go-graphql-api/src/model"
 )
 
-const (
-	defaultListFetchSize = 10
-)
 
 type ArticleService struct {
 	db          *sqlx.DB
@@ -40,11 +37,11 @@ func (a *ArticleService) CreateArticle(article *model.Article, userId *string) (
 	}
 	//many to many relation
 	rel := &relArticleUser{
-		UserId 		: userId,
-		ArticleId	: articleId,
+		UserId 		: *userId,
+		ArticleId	: article.ID,
 	}
-	articleUserSQL : `INSERT INTO rel_articles_users(user_id, article_id) VALUES(:UserId, :ArticleId)`
-	_, err := a.db.NamedExec(articleUserSQL, *rel)
+	articleUserSQL := `INSERT INTO rel_articles_users(user_id, article_id) VALUES(:UserId, :ArticleId)`
+	_, err = a.db.NamedExec(articleUserSQL, *rel)
 	if err != nil {
 		return nil, err
 	}

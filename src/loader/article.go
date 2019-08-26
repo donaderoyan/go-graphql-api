@@ -6,7 +6,7 @@ import (
   "github.com/donaderoyan/go-graphql-api/src/service"
   "context"
   "gopkg.in/nicksrandall/dataloader.v5"
-  "sync"
+  //"sync"
 )
 
 type articlesLoader struct {
