@@ -34,11 +34,6 @@ mutation {
 }
 ```
 
-{"query":"mutation {signUp(email:\"test3@test.com\" password: \"12345678\" firstName: \"graphql3\" lastName: \"go3\") {ok error user {id email firstName lastName bio avatar createdAt updatedAt}}}"}
-
-
-
-
 ### Sign In
 
 ```graphql
@@ -116,11 +111,3 @@ query {
   }
 }
 ```
-{"query":"{getMyProfile {ok error user {id email firstName lastName bio avatar createdAt updatedAt}}}"}
-
-
-{"query":"{getAllUsers{ok error users {id email firstName lastName bio avatar}}}"}
-
-{"query":"{user(email:\"odon@test.com\"){id email createdAt }}"}
-
-{"query":"{users(first:1){totalCount edges{cursor node{email}}}}"}
